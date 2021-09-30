@@ -1,0 +1,11 @@
+[Unit]
+Description=IP Show
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ipshow
+
+[Install]
+WantedBy=multi-user.target
+
