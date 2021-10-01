@@ -23,7 +23,7 @@ void getIPAddresses() {
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
     int success = 0;
-    bool found = false;
+    int found = 0;
     // retrieve the current interfaces - returns 0 on success
     success = getifaddrs(&interfaces);
     if (success == 0) {
@@ -33,16 +33,14 @@ void getIPAddresses() {
             if(temp_addr->ifa_addr->sa_family == AF_INET) {
                 // Check if interface is en0 which is the wifi connection on the iPhone
                 if(strcmp(temp_addr->ifa_name, "wlan0")==0){
-                    showIP(0, 'W',
+                    showIP(found++, 'W',
                         inet_ntoa(((struct sockaddr_in*)temp_addr->ifa_addr)->sin_addr)
                     );
-                    found = true;
                 }
                 if(strcmp(temp_addr->ifa_name, "eth0")==0){
-                    showIP(1, 'E',
+                    showIP(found++, 'E',
                         inet_ntoa(((struct sockaddr_in*)temp_addr->ifa_addr)->sin_addr)
                     );
-                    found = true;
                 }
 
             }
@@ -53,7 +51,7 @@ void getIPAddresses() {
     freeifaddrs(interfaces);
 
     if (!found) {
-       showIP(3, '?', noIP);
+       showIP(found, '?', noIP);
     }
 }
 
