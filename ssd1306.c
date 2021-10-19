@@ -91,11 +91,11 @@ void SSD1306_DATA_Send() {
   }
 }
 
-void SSD1306_Init(const char* device) {
+uint8_t SSD1306_Init(const char* device) {
   int fd = i2c_open(device, SSD1306_ADDR);
   if (fd < 0) {
     fprintf(stderr, "SSD1306: Cannot open %s\r\n", device);
-    return;
+    return 0;
   }
 
   SSD1306.Device = fd;
@@ -133,6 +133,8 @@ void SSD1306_Init(const char* device) {
   SSD1306_CMD_Add2(0x22,4,7); // second half 128x32
   SSD1306_CMD_Send();
   SSD1306_DATA_Send();
+
+  return 1;
 }
 
 void SSD1306_Screen_Update() {

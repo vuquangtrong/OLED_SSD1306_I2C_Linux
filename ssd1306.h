@@ -64,7 +64,7 @@ void SSD1306_CMD_Add1(uint8_t command, uint8_t data);
 void SSD1306_CMD_Add2(uint8_t command, uint8_t data1,  uint8_t data2);
 void SSD1306_CMD_Send();
 void SSD1306_DATA_Send();
-void SSD1306_Init(const char* device);
+uint8_t SSD1306_Init(const char* device);
 void SSD1306_Screen_Update();
 void SSD1306_Fill(SSD1306_COLOR_t color);
 void SSD1306_Clear();
